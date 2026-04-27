@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:16-alpine
+    image: mirror.gcr.io/postgres:16-alpine
     container_name: db
     environment:
       POSTGRES_DB: stop
@@ -15,7 +15,7 @@ services:
       context: ${SERVER_DIR}
       args:
         - PORT=${SERVER_PORT}
-        - BASE_IMAGE=python:3.14-trixie
+        - BASE_IMAGE=mirror.gcr.io/python:3.14-trixie
     environment:
       DATABASE_URL: postgresql+psycopg://${DB_USER}:${DB_PASSWORD}@db:5432/stop
     depends_on:
@@ -27,7 +27,7 @@ services:
       context: ${UI_DIR}
       args:
         - PORT=${UI_PORT}
-        - BASE_IMAGE=oven/bun:1
+        - BASE_IMAGE=mirror.gcr.io/oven/bun:1
     environment:
       - __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS=ui
     depends_on:
