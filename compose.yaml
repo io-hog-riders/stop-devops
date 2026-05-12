@@ -37,11 +37,21 @@ services:
     image: nginx:latest
     ports:
       - 80:80
+      - 443:443
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+    secrets:
+      - ssl_key
+      - ssl_pem
     depends_on:
       - server
       - ui
 
 volumes:
   postgres_data: {}
+
+secrets:
+  ssl_key:
+    file: ./stop.key
+  ssl_pem:
+    file: ./stop.pem
